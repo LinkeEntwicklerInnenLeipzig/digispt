@@ -1,0 +1,16 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Digitaler Stadtparteitag</title>
+    <script src="/socket.io/socket.io.js"></script>
+  </head>
+  <body>
+    <input id="i" />
+
+    <script>
+      var socket = io();
+      var i = document.getElementById("i");
+      i.addEventListener("change", function() { socket.emit("_changedata", JSON.stringify(i.value)); });
+    </script>
+  </body>
+</html>
