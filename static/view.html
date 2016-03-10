@@ -1,15 +1,30 @@
 <!doctype html>
-<html ng-app="view">
+<html ng-app="digispt">
   <head>
     <title>Digitaler Stadtparteitag</title>
     <script src="/socket.io/socket.io.js"></script>
     <script src="/vend/angular/angular.min.js"></script>
-    <script src="/view.js"></script>
-    <script>
-
-    </script>
+    <script src="/vend/angular-sanitize/angular-sanitize.min.js"></script>
+    <script src="/digispt.js"></script>
+    <style>
+    * { text-align: center; color: #fff; font-family: sans; }
+    body, html { background-color: #DF0404; height: 100%; margin: 0;}
+    body > div { display:table; width: 100%; margin: 0; height: 100%;}
+    body > div > div { display:table-cell; vertical-align:middle; }
+    h1 { font-size: 300%; }
+    .subtitle { font-size: xx-large; }
+    .addinfo { font-size: x-large; }
+    hr { width: 80%; border-style: none; border-bottom: 1px dashed #fff; }
+    </style>
   </head>
   <body ng-controller="ViewController as view">
-    <h1>{{view.data}}</h1>
+    <div>
+    <div id="title" ng-if="view.active('title')">
+      <h1>{{view.data.title.headline}}</h1>
+      <hr />
+      <p class="subtitle">{{view.data.title.subtitle}}</p>
+      <p class="addinfo" ng-bind-html="view.data.title.addinfo"></p>
+    </div>
+  </div>
   </body>
 </html>
