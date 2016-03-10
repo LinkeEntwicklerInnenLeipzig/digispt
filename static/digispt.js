@@ -1,7 +1,7 @@
 var socket = io();
 var data = {title:{}, speakerlist: {}};
 
-angular.module('digispt', ['ngSanitize'])
+angular.module('digispt', ['ngSanitize', 'angular-mousetrap'])
 .controller('ViewController', function($scope) {
   var d = this;
   d.data = data;
@@ -19,7 +19,7 @@ angular.module('digispt', ['ngSanitize'])
   });
 
 })
-.controller('AdminController', function($scope, $sanitize) {
+.controller('AdminController', function($scope, $sanitize, Mousetrap) {
   var d = this;
   d.data = data;
   this.active = function(viewname) {
@@ -41,6 +41,7 @@ angular.module('digispt', ['ngSanitize'])
   this.send = function () {
     socket.emit("_changedata", JSON.stringify(d.data));
   }
+  Mousetrap.bind('alt+o', function() {d.send();});
 
   socket.on('init', function(data){
       d.data = JSON.parse(data);

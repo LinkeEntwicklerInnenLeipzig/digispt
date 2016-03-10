@@ -5,6 +5,7 @@
     <script src="/socket.io/socket.io.js"></script>
     <script src="/vend/angular/angular.min.js"></script>
     <script src="/vend/angular-sanitize/angular-sanitize.min.js"></script>
+    <script src="/vend/angular-mousetrap-service/release/angular-mousetrap-service.min.js"></script>
     <script src="/digispt.js"></script>
     <script src="/vend/jquery/dist/jquery.min.js"></script>
     <script src="/vend/bootstrap/dist/js/bootstrap.min.js"></script>
@@ -32,10 +33,11 @@
           <button ng-click="admin.data.activeView='title'" type="button" class="btn btn-default">Titel</button>
           <button ng-click="admin.data.activeView='speakerlist'" type="button" class="btn btn-default">RednerInnenliste</button>
         </div>
-        <div class="btn-group" role="group">
-          <button ng-click="admin.send()" type="button" class="btn btn-default">Übertragen <span class="glyphicon glyphicon-transfer" aria-hidden="true"></span></button>
+        <div class="btn-group pull-right" role="group">
+          <button ng-click="admin.send()" type="button" class="btn btn-primary">Übertragen <span class="glyphicon glyphicon-transfer" aria-hidden="true"></span></button>
         </div>
       </div>
+      <small class="pull-right" style="color: #999;">Alternativ übertragen mit <kbd style="vertical-align: top;"><kbd>alt</kbd> + <kbd>o</kbd></kbd></small>
 
       <hr />
 
@@ -44,15 +46,15 @@
           <form class="form">
             <div class="form-group">
               <label for="headline">Hauptüberschrift</label>
-              <input class="form-control" id="headline" ng-model="admin.data.title.headline" />
+              <input class="form-control mousetrap" id="headline" ng-model="admin.data.title.headline" />
             </div>
             <div class="form-group">
               <label for="subtitle">Unterüberschrift</label>
-              <input class="form-control" id="subtitle" ng-model="admin.data.title.subtitle" />
+              <input class="form-control mousetrap" id="subtitle" ng-model="admin.data.title.subtitle" />
             </div>
             <div class="form-group">
               <label for="addinfo">Zusatzinformationen</label>
-              <textarea class="form-control" id="addinfo" ng-model="admin.data.title.addinfo"></textarea>
+              <textarea class="form-control mousetrap" id="addinfo" ng-model="admin.data.title.addinfo"></textarea>
             </div>
           </form>
         </div>
@@ -63,11 +65,11 @@
           <form class="form">
             <div class="form-group">
               <label for="headline">Überschrift</label>
-              <input class="form-control" id="headline" ng-model="admin.data.speakerlist.headline" />
+              <input class="form-control mousetrap" id="headline" ng-model="admin.data.speakerlist.headline" />
             </div>
             <hr />
             <div class="input-group" ng-repeat="speaker in admin.data.speakerlist.list">
-              <input ng-model="speaker.name" type="text" class="form-control" placeholder="Name" ng-keyup="admin.fixspeakerlist()">
+              <input ng-model="speaker.name" type="text" class="form-control mousetrap" placeholder="Name" ng-keyup="admin.fixspeakerlist()">
               <div class="input-group-addon">RednerIn</div>
             </div>
           </form>
