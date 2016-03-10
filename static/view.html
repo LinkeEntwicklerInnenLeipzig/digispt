@@ -9,22 +9,34 @@
     <style>
     * { text-align: center; color: #fff; font-family: sans; }
     body, html { background-color: #DF0404; height: 100%; margin: 0;}
+    body { background-image: url('logo.png'); background-position: 100% 100%; background-repeat: no-repeat; }
     body > div { display:table; width: 100%; margin: 0; height: 100%;}
     body > div > div { display:table-cell; vertical-align:middle; }
     h1 { font-size: 300%; }
+    h1 small { font-size: 50%; color: #ddd;}
     .subtitle { font-size: xx-large; }
     .addinfo { font-size: x-large; }
+    .speaker { font-size: xx-large; list-style: none; }
+    .speaker:first-child { font-weight: bold; }
     hr { width: 80%; border-style: none; border-bottom: 1px dashed #fff; }
     </style>
   </head>
   <body ng-controller="ViewController as view">
     <div>
-    <div id="title" ng-if="view.active('title')">
-      <h1>{{view.data.title.headline}}</h1>
-      <hr />
-      <p class="subtitle">{{view.data.title.subtitle}}</p>
-      <p class="addinfo" ng-bind-html="view.data.title.addinfo"></p>
-    </div>
+      <div id="title" ng-if="view.active('title')">
+        <h1>{{view.data.title.headline}}</h1>
+        <hr />
+        <p class="subtitle">{{view.data.title.subtitle}}</p>
+        <p class="addinfo" ng-bind-html="view.data.title.addinfo"></p>
+      </div>
+
+      <div id="speakerlist" ng-if="view.active('speakerlist')">
+        <h1>{{view.data.speakerlist.headline}} <small>RednerInnenliste</small></h1>
+        <hr />
+        <ul>
+          <li class="speaker" ng-repeat="speaker in view.data.speakerlist.list">{{speaker.name}}</li>
+        </ul>
+      </div>
   </div>
   </body>
 </html>

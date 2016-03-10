@@ -58,6 +58,21 @@
         </div>
       </div>
 
+      <div class="row" id="speakerlist" ng-if="admin.active('speakerlist')">
+        <div class="col-md-offset-2 col-md-8">
+          <form class="form">
+            <div class="form-group">
+              <label for="headline">Überschrift</label>
+              <input class="form-control" id="headline" ng-model="admin.data.speakerlist.headline" />
+            </div>
+            <hr />
+            <div class="input-group" ng-repeat="speaker in admin.data.speakerlist.list">
+              <input ng-model="speaker.name" type="text" class="form-control" placeholder="Name" ng-keyup="admin.fixspeakerlist()">
+              <div class="input-group-addon">RednerIn</div>
+            </div>
+          </form>
+        </div>
+      </div>
 
     </div>
 

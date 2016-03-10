@@ -1,9 +1,5 @@
 var socket = io();
-var data = {
-  activeView: "title",
-  title: { headline: "Ueberschrift", subtitle: "Unterueberschrift", addinfo: "" },
-  speakerlist: { list: [] }
-};
+var data = {title:{}, speakerlist: {}};
 
 angular.module('digispt', ['ngSanitize'])
 .controller('ViewController', function($scope) {
@@ -29,7 +25,28 @@ angular.module('digispt', ['ngSanitize'])
   this.active = function(viewname) {
     return viewname == d.data.activeView;
   };
+  this.fixspeakerlist = function() {
+    console.log("fixsp", d.data.speakerlist.list);
+    if (d.data.speakerlist.list == undefined) {
+      d.data.speakerlist.list = [];
+    }
+    var l = d.data.speakerlist.list;
+    if (l.length == 0) { l.push({name:""}); }
+    if (l[l.length - 1].name != "") l.push({name:""});
+    console.log(d.data.speakerlist.list);
+    for (var idx = l.length - 2; idx >= 0; idx--) {
+      if (l[idx].name == "") l.splice(idx, 1);
+    }
+  }
   this.send = function () {
     socket.emit("_changedata", JSON.stringify(d.data));
   }
+
+  socket.on('init', function(data){
+      d.data = JSON.parse(data);
+      d.fixspeakerlist();
+      $scope.$apply();
+  });
+
+  this.fixspeakerlist();
 });
