@@ -6,6 +6,7 @@
     <script src="/vend/angular/angular.min.js"></script>
     <script src="/vend/angular-sanitize/angular-sanitize.min.js"></script>
     <script src="/vend/angular-mousetrap-service/release/angular-mousetrap-service.min.js"></script>
+    <script src="/vend/angular-drag-and-drop-lists/angular-drag-and-drop-lists.min.js"></script>
     <script src="/digispt.js"></script>
     <script src="/vend/jquery/dist/jquery.min.js"></script>
     <script src="/vend/bootstrap/dist/js/bootstrap.min.js"></script>
@@ -18,6 +19,7 @@
     <style>
       .btn .glyphicon { vertical-align: middle; }
       #addinfo { height: 7em; }
+      ul[dnd-list], ul[dnd-list] > li { position: relative; }
     </style>
 
   </head>
@@ -68,9 +70,12 @@
               <input class="form-control mousetrap" id="headline" ng-model="admin.data.speakerlist.headline" />
             </div>
             <hr />
-            <div class="input-group" ng-repeat="speaker in admin.data.speakerlist.list">
-              <input ng-model="speaker.name" type="text" class="form-control mousetrap" placeholder="Name" ng-keyup="admin.fixspeakerlist()">
-              <div class="input-group-addon">RednerIn</div>
+            <div dnd-list="admin.data.speakerlist.list" dnd-allowed-types="speaker">
+              <div class="input-group" ng-repeat="speaker in admin.data.speakerlist.list"
+              dnd-draggable="speaker" dnd-type="speaker" dnd-disable-if="speaker.name==''" dnd-moved="admin.data.speakerlist.list.splice($index, 1); admin.fixspeakerlist();">
+                <input ng-model="speaker.name" type="text" class="form-control mousetrap" placeholder="Name" ng-keyup="admin.fixspeakerlist()" dnd-nodrag />
+                <div class="input-group-addon"><span class="glyphicon glyphicon-move" aria-hidden="true"></span> RednerIn</div>
+              </div>
             </div>
           </form>
         </div>

@@ -1,7 +1,7 @@
 var socket = io();
 var data = {title:{}, speakerlist: {}};
 
-angular.module('digispt', ['ngSanitize', 'angular-mousetrap'])
+angular.module('digispt', ['ngSanitize', 'angular-mousetrap', 'dndLists'])
 .controller('ViewController', function($scope) {
   var d = this;
   d.data = data;
@@ -31,8 +31,8 @@ angular.module('digispt', ['ngSanitize', 'angular-mousetrap'])
       d.data.speakerlist.list = [];
     }
     var l = d.data.speakerlist.list;
-    if (l.length == 0) { l.push({name:""}); }
-    if (l[l.length - 1].name != "") l.push({name:""});
+    if (l.length == 0) { l.push({name:"", id: Math.random()}); }
+    if (l[l.length - 1].name != "") l.push({name:"", id: Math.random()});
     console.log(d.data.speakerlist.list);
     for (var idx = l.length - 2; idx >= 0; idx--) {
       if (l[idx].name == "") l.splice(idx, 1);

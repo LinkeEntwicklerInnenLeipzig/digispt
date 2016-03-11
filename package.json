@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "angular": "^1.5.0",
+    "angular-drag-and-drop-lists": "^1.4.0",
     "angular-mousetrap-service": "^0.1.0",
     "angular-sanitize": "^1.5.0",
     "bootstrap": "^3.3.6",
