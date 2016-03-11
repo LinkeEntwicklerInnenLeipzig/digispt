@@ -35,7 +35,7 @@ io.on('connection', function(socket){
     console.log("change", msg);
     io.emit('changedata', msg);
     data.last = JSON.parse(msg);
-    fs.writeFileSync(datafile, data.last);
+    fs.writeFileSync(datafile, JSON.stringify(data.last));
   });
   io.emit('init', JSON.stringify(data.last));
   io.emit('changedata', JSON.stringify(data.last));
