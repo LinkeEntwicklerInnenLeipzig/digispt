@@ -8,5 +8,8 @@
     "express": "^4.13.4",
     "jquery": "^2.2.1",
     "socket.io": "^1.4.5"
+  },
+  "scripts" : {
+    "install" : "wget http://www.die-linke.de/fileadmin/tpl/css/fonts/c063008tWeb.woff -O static/CSBold.woff && wget http://www.die-linke.de/fileadmin/tpl/css/fonts/c063003tWeb.woff -O static/CS.woff && wget http://www.die-linke.de/fileadmin/tpl/css/fonts/c063002tWeb.woff -O static/CSLight.woff"
   }
 }
