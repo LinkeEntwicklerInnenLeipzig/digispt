@@ -10,10 +10,12 @@ angular.module('digispt', ['ngSanitize', 'angular-mousetrap', 'dndLists'])
     return viewname == d.data.activeView;
   };
 
+  this.nl2br = function(str) {
+    return str.replace(/\n/g, "<br />");
+  }
+
   socket.on('changedata', function(data){
       d.data = JSON.parse(data);
-      d.data.title.addinfo = d.data.title.addinfo.replace(/\n/g, "<br />");
-
       console.log('change', d.data);
       $scope.$apply();
   });

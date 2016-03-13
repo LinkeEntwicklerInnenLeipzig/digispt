@@ -29,7 +29,7 @@
         <h1>{{view.data.title.headline}}</h1>
         <hr />
         <p class="subtitle">{{view.data.title.subtitle}}</p>
-        <p class="addinfo" ng-bind-html="view.data.title.addinfo"></p>
+        <p class="addinfo" ng-bind-html="view.nl2br(view.data.title.addinfo)"></p>
       </div>
 
       <div id="speakerlist" ng-if="view.active('speakerlist')">
