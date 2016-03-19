@@ -14,9 +14,18 @@ angular.module('digispt', ['ngSanitize', 'angular-mousetrap', 'dndLists'])
     return str.replace(/\n/g, "<br />");
   }
 
+  this.urlParam = function(name){ // http://www.sitepoint.com/url-parameters-jquery/
+    var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+    if (results === null || results === undefined) { return undefined; }
+    return results[1] || 0;
+  };
+
   socket.on('changedata', function(data){
       d.data = JSON.parse(data);
       console.log('change', d.data);
+      if (d.urlParam('data')) {
+        d.data = JSON.parse(decodeURI(d.urlParam('data')));
+      }
       $scope.$apply();
   });
 
@@ -50,6 +59,10 @@ angular.module('digispt', ['ngSanitize', 'angular-mousetrap', 'dndLists'])
       d.fixspeakerlist();
       $scope.$apply();
   });
+
+  this.setpreview = function () {
+    $('#preview iframe').attr('src', '/?data=' + encodeURI(JSON.stringify(d.data)));
+  }
 
   this.fixspeakerlist();
   $(window).trigger('resize');
