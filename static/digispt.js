@@ -52,4 +52,5 @@ angular.module('digispt', ['ngSanitize', 'angular-mousetrap', 'dndLists'])
   });
 
   this.fixspeakerlist();
+  $(window).trigger('resize');
 });
