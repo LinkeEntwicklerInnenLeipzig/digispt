@@ -58,6 +58,7 @@ angular.module('digispt', ['ngSanitize', 'angular-mousetrap', 'dndLists'])
       d.data = JSON.parse(data);
       d.fixspeakerlist();
       $scope.$apply();
+      socket.removeAllListeners('init');
   });
 
   this.setpreview = function () {
