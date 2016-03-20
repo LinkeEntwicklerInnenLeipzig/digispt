@@ -19,15 +19,18 @@ angular.module('digispt', ['ngSanitize', 'angular-mousetrap', 'dndLists'])
     if (results === null || results === undefined) { return undefined; }
     return results[1] || 0;
   };
+  d.overridedata = d.urlParam('data');
 
-  socket.on('changedata', function(data){
-      d.data = JSON.parse(data);
-      console.log('change', d.data);
-      if (d.urlParam('data')) {
-        d.data = JSON.parse(decodeURI(d.urlParam('data')));
-      }
-      $scope.$apply();
-  });
+  if (d.overridedata) {
+    d.data = JSON.parse(decodeURI(d.overridedata));
+  }
+  else {
+    socket.on('changedata', function(data){
+        d.data = JSON.parse(data);
+        console.log('change', d.data);
+        $scope.$apply();
+    });
+  }
 
 })
 .controller('AdminController', function($scope, $sanitize, Mousetrap) {
