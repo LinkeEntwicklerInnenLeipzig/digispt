@@ -104,8 +104,7 @@
       <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title">Vorschau</h4>
+            <h4 class="modal-title">Vorschau <button ng-click="admin.send()" data-dismiss="modal" type="button" class="btn btn-primary pull-right">Übertragen <span class="glyphicon glyphicon-transfer" aria-hidden="true"></span></button></h4>
           </div>
           <iframe src="/"></iframe>
           <script>$(window).on('resize',function(){$('#preview iframe').height($(window).height()*0.8);});
