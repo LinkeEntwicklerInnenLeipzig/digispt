@@ -40,7 +40,6 @@ angular.module('digispt', ['ngSanitize', 'angular-mousetrap', 'dndLists'])
     return viewname == d.data.activeView;
   };
   this.fixspeakerlist = function() {
-    console.log("fixsp", d.data.speakerlist.list);
     if (d.data.speakerlist.list == undefined) {
       d.data.speakerlist.list = [];
     }
