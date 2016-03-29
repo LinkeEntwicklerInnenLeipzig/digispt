@@ -24,3 +24,9 @@ Update ab Schritt 3
 7. `npm install` eingeben
 9. `node srv.js` eingeben
 10. (Editier-)Ansicht auf http://localhost:3000 bzw. http://localhost:3000/admin
+
+## Bei Problemen
+
+1. `data.json` löschen
+2. Anwendung neu starten
+3. Browser mit **strg+F5** neu laden
