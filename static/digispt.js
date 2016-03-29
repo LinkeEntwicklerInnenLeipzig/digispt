@@ -1,5 +1,11 @@
 var socket = io();
-var data = {title:{}, speakerlist: {}};
+var data = {title:{}, speakerlist: {}, timetable: {}};
+var padleft = function (text, fill, amount) {
+  while (text.length < amount) {
+    text = fill + text;
+  }
+  return text;
+};
 
 angular.module('digispt', ['ngSanitize', 'angular-mousetrap', 'dndLists'])
 .controller('ViewController', function($scope) {
@@ -51,6 +57,28 @@ angular.module('digispt', ['ngSanitize', 'angular-mousetrap', 'dndLists'])
       if (l[idx].name == "") l.splice(idx, 1);
     }
   }
+  this.fixtimetablelist = function() {
+    if (d.data.timetable.list == undefined) {
+      d.data.timetable.list = [];
+    }
+    var l = d.data.timetable.list;
+    if (l.length == 0) { l.push({name:"", time: "", id: Math.random()}); }
+    if (l[l.length - 1].name != "" || l[l.length - 1].time != "") l.push({name:"", time: "", id: Math.random()});
+    for (var idx = l.length - 2; idx >= 0; idx--) {
+      if (l[idx].name == "" && l[idx].time == "") l.splice(idx, 1);
+    }
+  }
+  this.sorttimetablelist = function() {
+    d.data.timetable.list.sort(function(a,b){
+      var _a = padleft(a.time, '0', 5),
+          _b = padleft(b.time, '0', 5);
+      if (_a < _b) { return -1; }
+      if (_a > _b) { return 1; }
+      return 0;
+    });
+    d.fixtimetablelist();
+  }
+
   this.send = function () {
     socket.emit("_changedata", JSON.stringify(d.data));
   }
@@ -59,6 +87,7 @@ angular.module('digispt', ['ngSanitize', 'angular-mousetrap', 'dndLists'])
   socket.on('init', function(data){
       d.data = JSON.parse(data);
       d.fixspeakerlist();
+      d.fixtimetablelist();
       $scope.$apply();
       socket.removeAllListeners('init');
   });
@@ -68,5 +97,6 @@ angular.module('digispt', ['ngSanitize', 'angular-mousetrap', 'dndLists'])
   }
 
   this.fixspeakerlist();
+  this.fixtimetablelist();
   $(window).trigger('resize');
 });

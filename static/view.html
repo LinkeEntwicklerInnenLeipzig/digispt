@@ -18,9 +18,13 @@
     h1 small { font-size: 50%; color: #ddd;}
     .subtitle { font-size: xx-large; }
     .addinfo { font-size: x-large; }
-    .speaker { font-size: xx-large; list-style: none; }
+    .speaker, .entry { font-size: xx-large; list-style: none; }
     .speaker:first-child { font-weight: bold; }
+    #timetable table { width: 80%; margin: 0 auto; }
+    #timetable table .time { text-align: right; }
+    #timetable table .name { text-align: left; padding-left: 1em; }
     hr { width: 80%; border-style: none; border-bottom: 1px dashed #fff; }
+
     </style>
   </head>
   <body ng-controller="ViewController as view">
@@ -30,6 +34,17 @@
         <hr />
         <p class="subtitle">{{view.data.title.subtitle}}</p>
         <p class="addinfo" ng-bind-html="view.nl2br(view.data.title.addinfo)"></p>
+      </div>
+
+      <div id="timetable" ng-if="view.active('timetable')">
+        <h1>{{view.data.timetable.headline}} <small>Zeitplan</small></h1>
+        <hr />
+        <table>
+          <tr class="entry" ng-repeat="entry in view.data.timetable.list" ng-if="entry.name != '' || entry.time != ''">
+            <td class="time">{{entry.time}}</td>
+            <td class="name">{{entry.name}}</td>
+          </tr>
+        </table>
       </div>
 
       <div id="speakerlist" ng-if="view.active('speakerlist')">
