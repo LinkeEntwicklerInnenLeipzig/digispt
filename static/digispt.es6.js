@@ -60,13 +60,7 @@ angular.module('digispt', ['ngSanitize', 'angular-mousetrap', 'dndLists'])
     (o)=> o.name === "" && o.time === "" );
 
   this.sorttimetablelist = function() {
-    d.data.timetable.list.sort(function(a,b){
-      var _a = padleft(a.time, '0', 5),
-          _b = padleft(b.time, '0', 5);
-      if (_a < _b) { return -1; }
-      if (_a > _b) { return 1; }
-      return 0;
-    });
+    d.data.timetable.list = _.sortBy(d.data.timetable.list, (o) => padleft(o.time, '0', 5));
     d.fixtimetablelist();
   }
 
