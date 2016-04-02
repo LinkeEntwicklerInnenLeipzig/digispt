@@ -5,6 +5,24 @@ var padleft = function (text, fill, amount) {
     text = fill + text;
   }
   return text;
+},
+fixlist_fun = function(_data, listname, empty_generator, empty_check) {
+  var generate_empty = function() {
+    var o = empty_generator();
+    o.id = Math.random();
+    return o;
+  };
+  return function() {
+    var data = _data();
+    if (data[listname] === undefined) { data[listname] = []; }
+    var l = data[listname];
+    if (l.length == 0 || !empty_check(l[l.length - 1])) {
+      l.push(generate_empty());
+    }
+    for (let idx = l.length - 2; idx >= 0; idx--) {
+      if (empty_check(l[idx])) { l.splice(idx, 1); }
+    }
+  };
 };
 
 angular.module('digispt', ['ngSanitize', 'angular-mousetrap', 'dndLists'])
@@ -39,29 +57,16 @@ angular.module('digispt', ['ngSanitize', 'angular-mousetrap', 'dndLists'])
   d.data = data;
   this.active = (viewname) => (viewname == d.data.activeView)
 
-  this.fixspeakerlist = function() {
-    if (d.data.speakerlist.list == undefined) {
-      d.data.speakerlist.list = [];
-    }
-    var l = d.data.speakerlist.list;
-    if (l.length == 0) { l.push({name:"", id: Math.random()}); }
-    if (l[l.length - 1].name != "") l.push({name:"", id: Math.random()});
-    console.log(d.data.speakerlist.list);
-    for (var idx = l.length - 2; idx >= 0; idx--) {
-      if (l[idx].name == "") l.splice(idx, 1);
-    }
-  }
-  this.fixtimetablelist = function() {
-    if (d.data.timetable.list == undefined) {
-      d.data.timetable.list = [];
-    }
-    var l = d.data.timetable.list;
-    if (l.length == 0) { l.push({name:"", time: "", id: Math.random()}); }
-    if (l[l.length - 1].name != "" || l[l.length - 1].time != "") l.push({name:"", time: "", id: Math.random()});
-    for (var idx = l.length - 2; idx >= 0; idx--) {
-      if (l[idx].name == "" && l[idx].time == "") l.splice(idx, 1);
-    }
-  }
+  this.fixspeakerlist = fixlist_fun(
+    () => d.data.speakerlist, 'list',
+    () => ({name: ""}),
+    (o)=> o.name == "");
+
+  this.fixtimetablelist = fixlist_fun(
+    () => d.data.timetable, 'list',
+    () => ({name: "", time: ""}),
+    (o)=> o.name == "" && o.time == "" );
+
   this.sorttimetablelist = function() {
     d.data.timetable.list.sort(function(a,b){
       var _a = padleft(a.time, '0', 5),
