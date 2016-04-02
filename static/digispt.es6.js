@@ -1,12 +1,6 @@
 var socket = io();
 var data = {title:{}, speakerlist: {}, timetable: {}};
-var padleft = function (text, fill, amount) {
-  while (text.length < amount) {
-    text = fill + text;
-  }
-  return text;
-},
-fixlist_fun = function(_data, listname, empty_generator, empty_check) {
+var fixlist_fun = function(_data, listname, empty_generator, empty_check) {
   var generate_empty = () => _.assign(empty_generator(), {id: Math.random()});
   return function() {
     var data = _data();
@@ -60,7 +54,7 @@ angular.module('digispt', ['ngSanitize', 'angular-mousetrap', 'dndLists'])
     (o)=> o.name === "" && o.time === "" );
 
   this.sorttimetablelist = function() {
-    d.data.timetable.list = _.sortBy(d.data.timetable.list, (o) => padleft(o.time, '0', 5));
+    d.data.timetable.list = _.sortBy(d.data.timetable.list, (o) => _.padStart(o.time, 5, '0'));
     d.fixtimetablelist();
   }
 
