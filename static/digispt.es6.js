@@ -12,13 +12,8 @@ angular.module('digispt', ['ngSanitize', 'angular-mousetrap', 'dndLists'])
   var d = this;
   d.data = data;
 
-  this.active = function(viewname) {
-    return viewname == d.data.activeView;
-  };
-
-  this.nl2br = function(str) {
-    return str.replace(/\n/g, "<br />");
-  }
+  this.active = (viewname) => (viewname == d.data.activeView);
+  this.nl2br = (str) => str.replace(/\n/g, "<br />");
 
   this.urlParam = function(name){ // http://www.sitepoint.com/url-parameters-jquery/
     var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
@@ -42,9 +37,8 @@ angular.module('digispt', ['ngSanitize', 'angular-mousetrap', 'dndLists'])
 .controller('AdminController', function($scope, $sanitize, Mousetrap) {
   var d = this;
   d.data = data;
-  this.active = function(viewname) {
-    return viewname == d.data.activeView;
-  };
+  this.active = (viewname) => (viewname == d.data.activeView)
+
   this.fixspeakerlist = function() {
     if (d.data.speakerlist.list == undefined) {
       d.data.speakerlist.list = [];
@@ -79,10 +73,9 @@ angular.module('digispt', ['ngSanitize', 'angular-mousetrap', 'dndLists'])
     d.fixtimetablelist();
   }
 
-  this.send = function () {
-    socket.emit("_changedata", JSON.stringify(d.data));
-  }
-  Mousetrap.bind('alt+o', function() {d.send();});
+  this.send = () => socket.emit("_changedata", JSON.stringify(d.data));
+
+  Mousetrap.bind('alt+o', () => d.send());
 
   socket.on('init', function(data){
       d.data = JSON.parse(data);
@@ -92,9 +85,7 @@ angular.module('digispt', ['ngSanitize', 'angular-mousetrap', 'dndLists'])
       socket.removeAllListeners('init');
   });
 
-  this.setpreview = function () {
-    $('#preview iframe').attr('src', '/?data=' + encodeURI(JSON.stringify(d.data)));
-  }
+  this.setpreview = () => $('#preview iframe').attr('src', '/?data=' + encodeURI(JSON.stringify(d.data)));
 
   this.fixspeakerlist();
   this.fixtimetablelist();
