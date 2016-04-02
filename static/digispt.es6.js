@@ -7,21 +7,13 @@ var padleft = function (text, fill, amount) {
   return text;
 },
 fixlist_fun = function(_data, listname, empty_generator, empty_check) {
-  var generate_empty = function() {
-    var o = empty_generator();
-    o.id = Math.random();
-    return o;
-  };
+  var generate_empty = () => _.assign(empty_generator(), {id: Math.random()});
   return function() {
     var data = _data();
     if (data[listname] === undefined) { data[listname] = []; }
-    var l = data[listname];
-    if (l.length == 0 || !empty_check(l[l.length - 1])) {
-      l.push(generate_empty());
-    }
-    for (let idx = l.length - 2; idx >= 0; idx--) {
-      if (empty_check(l[idx])) { l.splice(idx, 1); }
-    }
+    let l = _.reject(data[listname], empty_check);
+    l.push(generate_empty());
+    data[listname] = l;
   };
 };
 
@@ -60,12 +52,12 @@ angular.module('digispt', ['ngSanitize', 'angular-mousetrap', 'dndLists'])
   this.fixspeakerlist = fixlist_fun(
     () => d.data.speakerlist, 'list',
     () => ({name: ""}),
-    (o)=> o.name == "");
+    (o)=> o.name === "");
 
   this.fixtimetablelist = fixlist_fun(
     () => d.data.timetable, 'list',
     () => ({name: "", time: ""}),
-    (o)=> o.name == "" && o.time == "" );
+    (o)=> o.name === "" && o.time === "" );
 
   this.sorttimetablelist = function() {
     d.data.timetable.list.sort(function(a,b){
