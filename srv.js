@@ -1,12 +1,30 @@
+var program = require('commander');
 var express = require('express')
 var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
-var fs = require('fs');
+var fs = require('fs-extra');
 var babel = require("babel-core");
 
 var staticfolder = __dirname + '/static';
 var vendfolder = __dirname + '/node_modules';
+
+// CLI
+
+program
+  .version('0.0.1')
+  .option('-s, --style [stil]', 'Einen Stil auswählen', '')
+  .parse(process.argv);
+
+// Collect Style
+var style;
+if (program.style) {
+  style = program.style.toLowerCase();
+}
+else {
+  style = 'default';
+}
+fs.copySync(staticfolder + '/' + style + '.css', staticfolder + '/style.css');
 
 // Generate ES5
 var generate_es5 = function(filename) {
