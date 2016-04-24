@@ -1,3 +1,5 @@
+/*jshint esversion: 6 */
+
 var socket = io();
 var data = {title:{}, speakerlist: {}, timetable: {}};
 var fixlist_fun = function(_data, listname, empty_generator, empty_check) {
@@ -41,7 +43,7 @@ angular.module('digispt', ['ngSanitize', 'angular-mousetrap', 'dndLists'])
 .controller('AdminController', function($scope, $sanitize, Mousetrap) {
   var d = this;
   d.data = data;
-  this.active = (viewname) => (viewname == d.data.activeView)
+  this.active = (viewname) => (viewname == d.data.activeView);
 
   this.fixspeakerlist = fixlist_fun(
     () => d.data.speakerlist, 'list',
@@ -56,7 +58,7 @@ angular.module('digispt', ['ngSanitize', 'angular-mousetrap', 'dndLists'])
   this.sorttimetablelist = function() {
     d.data.timetable.list = _.sortBy(d.data.timetable.list, (o) => _.padStart(o.time, 5, '0'));
     d.fixtimetablelist();
-  }
+  };
 
   this.send = () => socket.emit("_changedata", JSON.stringify(d.data));
 

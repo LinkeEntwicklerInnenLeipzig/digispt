@@ -1,5 +1,5 @@
 var program = require('commander');
-var express = require('express')
+var express = require('express');
 var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
@@ -28,13 +28,13 @@ fs.copySync(staticfolder + '/' + style + '.css', staticfolder + '/style.css');
 
 // Generate ES5
 var generate_es5 = function(filename) {
-  var options = {presets: ["es2015"]}
+  var options = {presets: ["es2015"]},
       code = babel.transformFileSync(
               staticfolder + '/' + filename + '.es6.js',
               options
              ).code;
   fs.writeFileSync(staticfolder + '/' + filename + '.js', code);
-}
+};
 generate_es5('digispt');
 
 // Static Data
@@ -56,7 +56,7 @@ http.listen(3000, function(){
 // Connections
 var data = { last: "{}" };
 data.last = JSON.parse(fs.readFileSync(__dirname + '/data.default.json'));
-var datafile = __dirname + '/data.json'
+var datafile = __dirname + '/data.json';
 try {
   data.last = JSON.parse(fs.readFileSync(datafile));
 } catch (ex) { }
