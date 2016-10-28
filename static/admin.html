@@ -54,11 +54,11 @@
           <form class="form">
             <div class="form-group">
               <label for="headline">Hauptüberschrift</label>
-              <input class="form-control mousetrap" id="headline" ng-model="admin.data.title.headline" />
+              <input class="form-control mousetrap" id="headline" placeholder="&Uuml;berschrift" ng-model="admin.data.title.headline" />
             </div>
             <div class="form-group">
               <label for="subtitle">Unterüberschrift</label>
-              <input class="form-control mousetrap" id="subtitle" ng-model="admin.data.title.subtitle" />
+              <input class="form-control mousetrap" id="subtitle" placeholder="Unter&uuml;berschrift" ng-model="admin.data.title.subtitle" />
             </div>
             <div class="form-group">
               <label for="addinfo">Zusatzinformationen</label>
@@ -73,7 +73,7 @@
           <form class="form">
             <div class="form-group">
               <label for="headline">Überschrift</label>
-              <input class="form-control mousetrap" id="headline" ng-model="admin.data.timetable.headline" />
+              <input class="form-control mousetrap" id="headline" placeholder="Zeitplan" ng-model="admin.data.timetable.headline" />
             </div>
             <hr />
             <div>
@@ -95,7 +95,7 @@
           <form class="form">
             <div class="form-group">
               <label for="headline">Überschrift</label>
-              <input class="form-control mousetrap" id="headline" ng-model="admin.data.speakerlist.headline" />
+              <input class="form-control mousetrap" id="headline" placeholder="Diskussion" ng-model="admin.data.speakerlist.headline" />
             </div>
             <hr />
             <div dnd-list="admin.data.speakerlist.list" dnd-allowed-types="speaker">
