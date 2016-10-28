@@ -1,6 +1,6 @@
 {
   "activeView": "title",
-  "title": { "headline": "Ueberschrift", "subtitle": "Unterueberschrift", "addinfo": "" },
-  "speakerlist": { "headline": "Diskussion", "list": [] },
-  "timetable": { "headline": "Zeitplan", "list": [] }
+  "title": { "headline": "", "subtitle": "", "addinfo": "" },
+  "speakerlist": { "headline": "", "list": [] },
+  "timetable": { "headline": "", "list": [] }
 }
